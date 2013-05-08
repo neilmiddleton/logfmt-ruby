@@ -71,4 +71,9 @@ describe Logfmt::Parser do
     data = Logfmt.parse('key=""')
     expect(data).to eq({:key => ""})
   end
+
+  it 'parse mixed unicode characters pairs' do
+    data = Logfmt.parse('a=1 b="bar" ƒ=2h3s r="esc\t" d x=sf')
+    expect(data).to eq({:a => "1", :b => "bar", :ƒ => "2h3s", :r => "esc\t", :d => true, :x => "sf"})
+  end
 end
